@@ -47,7 +47,7 @@ const UsersList = () => {
                         >
                             <option value={5}>5</option>
                             <option value={10}>10</option>
-                            <option value={users.total}>Todos</option>
+                            <option value={users.total + 1}>Todos</option>
                         </StyledSelect>
                         {users.map((e) => {
                             return <ListItem key={e.id} user={e} />;
