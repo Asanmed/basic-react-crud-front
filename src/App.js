@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
+import { GlobalStyle } from './styles/global-styles';
+
+import Login from './pages/Login';
+import UsersList from './pages/UserList';
+import UserDetail from './pages/UserDetail';
+import ErrorPage from './pages/ErrorPage';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div>
+            <GlobalStyle />
+            <Router>
+                <Switch>
+                    <Route exact path="/">
+                        <Login />
+                    </Route>
+                    <Route exact path="/users">
+                        <UsersList />
+                    </Route>
+                    <Route path="/details/:id" component={UserDetail}>
+                        <UserDetail />
+                    </Route>
+                    <Route path="*">
+                        <ErrorPage />
+                    </Route>
+                </Switch>
+            </Router>
+        </div>
+    );
 }
 
 export default App;

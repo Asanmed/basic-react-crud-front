@@ -1,70 +1,35 @@
-# Getting Started with Create React App
+# Description
+
+This is a basic CRUD application with authentication by password and JWT (Json web token) made with react, it uses Axios library for communicating with the server and styled-components for styling.
+
+It uses Redux for the state control and sagas as middleware for handling side effects as UI state changes.
+
+Routing has been made with React-Router
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+### Functionality
 
-In the project directory, you can run:
+The first screen shows a login box where the user must enter a valid email and password.
 
-### `yarn start`
+The second one, once the login has been made is a list with the first 5 users in the database, at the top of the page there is a select that will allow the user to show a list of 5, 10 or all existing users in the database.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+If the user clicks one of the list elements it will show up a page with the User details where, this page will allow to modify the selected user data or create a new one if the logged in user has Admin or Sales role (roles are described bellow).
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Valid emails for testing purposes are test1@test.com, test2@test.com, test3@test.com and so on, passwords is 123456 for all users.
 
-### `yarn test`
+There are 3 kind of users: Admins, Sales and Users, the first 2 are able to modify existing users or create new ones while the third one will be able to see other users info but not to modify it or create new ones.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+User `test1@test.com` has been defined as Admin so you can try all the CRUD functionality by login in with its credentials.
 
-### `yarn build`
+### Installation and start
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This application has been made to work with my basic rest server that can be found here: https://github.com/Asanmed/node_rest_server
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+A copy has been deployed here: [falta el link] for the purpose of showing its functionality:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Navigate to the root folder of the project and run `npm install` command, it will install all needed dependencies.
 
-### `yarn eject`
+Once it is finished follow the instructions for installing the rest server mentioned above.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+There is a .env file with a variable that contains the path for the local server services, please be sure that the path is correct on your computer once you run the rest server.
