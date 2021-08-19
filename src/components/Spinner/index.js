@@ -2,6 +2,10 @@ import styled from 'styled-components';
 import { colors } from '../../styles/colors';
 
 const StyledSpinner = styled.div`
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    margin-left: -36px;
     display: inline-block;
     width: 80px;
     height: 80px;

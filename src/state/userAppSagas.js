@@ -16,7 +16,7 @@ import UserListService from '../services/UserServices';
 function* fetchUsers(action) {
     try {
         const response = yield call(UserListService.getUsers, action.payload);
-        yield put(loadUsers(response.data.data));
+        yield put(loadUsers(response.data));
     } catch (error) {
         yield put(showErrorLoadUsers());
     }
