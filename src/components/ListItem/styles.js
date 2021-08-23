@@ -3,6 +3,19 @@ import styled from 'styled-components';
 import { colors } from '../../styles/colors';
 
 export const Wrapper = styled.div`
+    border-radius: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 1rem;
+    font-size: 2rem;
+    :hover {
+        transform: translatey(0.15rem);
+        box-shadow: 0.1rem 0.1rem 0.5rem 0.2rem ${colors.primaryLight};
+        transition-duration: 100ms;
+    }
+
     .role {
         text-align: center;
         max-height: 3rem;
@@ -28,24 +41,11 @@ export const Wrapper = styled.div`
         border-right-style: solid;
         span {
             margin: 0;
-            color: ${colors.primary};
+            color: ${colors.primaryLight};
         }
         p {
             margin: 0;
             color: ${colors.primary};
         }
-    }
-
-    border-radius: 0.5rem;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-top: 1rem;
-    font-size: 2rem;
-    :hover {
-        transform: translatey(0.15rem);
-        box-shadow: 0.1rem 0.1rem 0.5rem 0.2rem ${colors.primaryLight};
-        transition-duration: 100ms;
     }
 `;

@@ -4,11 +4,15 @@ import { useHistory } from 'react-router';
 
 import userRoles from '../../utils/userRoles';
 import { Wrapper } from './styles';
+import { requestLoadSingleUser } from '../../state/userApp';
+import { useDispatch } from 'react-redux';
 
 const ListItem = ({ user }) => {
     const history = useHistory();
+    const dispatch = useDispatch();
     const handleClick = () => {
-        history.push({ pathname: `/details/${user.id}`, state: { user } });
+        dispatch(requestLoadSingleUser(user.id));
+        history.push({ pathname: `/details/${user.id}` });
     };
     return (
         <Wrapper onClick={handleClick}>
@@ -18,9 +22,10 @@ const ListItem = ({ user }) => {
 
             <div className="name">
                 <p>
-                    {' '}
-                    <span>Name: </span>
-                    {`${user.name} `}{' '}
+                    <span className="tag">Name: </span>
+                    {`${user.first_name}`}
+                    <span> Lastname: </span>
+                    {`${user.last_name}`}
                 </p>
             </div>
         </Wrapper>
@@ -30,7 +35,7 @@ const ListItem = ({ user }) => {
 ListItem.propTypes = {
     user: PropTypes.shape({
         id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
+        first_name: PropTypes.string.isRequired,
         role: PropTypes.string.isRequired,
         email: PropTypes.string.isRequired,
     }),

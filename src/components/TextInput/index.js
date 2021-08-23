@@ -30,7 +30,7 @@ const TextInput = ({
                 disabled={disabled}
                 error={error}
                 type={type}
-                value={text}
+                value={text || ''}
                 placeholder={placeholder}
                 onChange={(e) => handleOnChange(e)}
             />

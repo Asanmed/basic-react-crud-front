@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -9,6 +9,8 @@ import {
     selectUiState,
     selectLoggedUser,
     restoreReadyState,
+    selectUserDetails,
+    requestLoadSingleUser,
 } from '../../state/userApp';
 
 import StyledSelect from '../../components/Select';
@@ -27,16 +29,16 @@ import UiState from '../../utils/UiState';
 import { Wrapper } from './styles';
 
 const UserDetail = () => {
-    const location = useLocation();
     const { id } = useParams();
     const uiState = useSelector(selectUiState);
     const loggedUser = useSelector(selectLoggedUser);
-    const user = location.state.user;
+    const selectedUser = useSelector(selectUserDetails);
 
     //states
-    const [firstName, setFirstName] = useState(user.name);
-    const [email, setEmail] = useState(user.email);
-    const [role, setRole] = useState(user.role);
+    const [firstName, setFirstName] = useState(selectedUser.first_name);
+    const [lastName, setLastName] = useState(selectedUser.last_name);
+    const [email, setEmail] = useState(selectedUser.email);
+    const [role, setRole] = useState(selectedUser.role);
     const [password, setPassword] = useState('');
     const [passwordMatch, setPasswordMatch] = useState('');
     const [showCreateUser, setShowCreateUser] = useState(false);
@@ -46,6 +48,7 @@ const UserDetail = () => {
 
     const clearFlields = () => {
         setFirstName('');
+        setLastName('');
         setEmail('');
         setRole('USER_ROLE');
     };
@@ -55,7 +58,8 @@ const UserDetail = () => {
         dispatch(
             requestUpdateUser({
                 id: id,
-                name: firstName,
+                first_name: firstName,
+                last_name: lastName,
                 password: password,
                 role: role,
                 email: email,
@@ -83,12 +87,12 @@ const UserDetail = () => {
         );
     };
 
-    const calcelCreateHandler = () => {
-        setFirstName(user.name);
-        setEmail(user.email);
-        setRole(userRoles[user.role]);
-        setShowCreateUser(false);
-    };
+    const fillFields = useCallback(() => {
+        setFirstName(selectedUser.first_name);
+        setLastName(selectedUser.last_name);
+        setEmail(selectedUser.email);
+        setRole(selectedUser.role);
+    }, [selectedUser]);
 
     //validations
     const validationsChain = [
@@ -101,6 +105,14 @@ const UserDetail = () => {
 
     let validationsCheck = validationsChain.includes(false);
 
+    useEffect(() => {
+        dispatch(requestLoadSingleUser(id));
+    }, [dispatch, id]);
+
+    useEffect(() => {
+        fillFields();
+    }, [fillFields, selectedUser]);
+
     return (
         <>
             <NavBar />
@@ -108,11 +120,16 @@ const UserDetail = () => {
                 {uiState === UiState.Ready && (
                     <>
                         <TextInput
-                            className="fill"
+                            placeholder="NOMBRE"
                             error={validations.checkEmptyField(firstName)}
                             errorMsg={errorMessages.missingUserName}
                             value={firstName}
                             setParentText={setFirstName}
+                        />
+                        <TextInput
+                            placeholder="APELLIDO"
+                            value={lastName}
+                            setParentText={setLastName}
                         />
                         <StyledSelect
                             value={role}
@@ -131,6 +148,7 @@ const UserDetail = () => {
                             </option>
                         </StyledSelect>
                         <TextInput
+                            placeholder="EMAIL"
                             disabled={!showCreateUser}
                             error={validations.checkValidEmail(email)}
                             errorMsg={errorMessages.missingValidEmail}
@@ -190,7 +208,10 @@ const UserDetail = () => {
                                     Crear
                                 </MultipurposeButton>
                                 <MultipurposeButton
-                                    onClick={calcelCreateHandler}
+                                    onClick={() => {
+                                        fillFields();
+                                        setShowCreateUser(false);
+                                    }}
                                 >
                                     Cancelar
                                 </MultipurposeButton>
@@ -210,6 +231,20 @@ const UserDetail = () => {
                     <MsgBox
                         msg={errorMessages.errorApiWrite}
                         type="error"
+                    ></MsgBox>
+                )}
+                {uiState === UiState.ErrorLoading && (
+                    <MsgBox
+                        msg={errorMessages.errorApiRead}
+                        type="error"
+                    ></MsgBox>
+                )}
+                {uiState === UiState.ErrorLogin && (
+                    <MsgBox
+                        msg={errorMessages.errorLogin}
+                        type="error"
+                        buttonText="Logearse"
+                        buttonClick={() => history.push('/')}
                     ></MsgBox>
                 )}
                 {uiState === UiState.ErrorPerms && (

@@ -3,12 +3,15 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import {
     loadUsers,
     requestLoadUsers,
+    requestLoadSingleUser,
+    loadUserDetails,
     requestUpdateUser,
     showErrorLoadUsers,
     showErrorPerms,
     requestAddUser,
     requestRemoveUser,
     showErrorProcessing,
+    showErrorLogin,
 } from './userApp';
 
 import UserListService from '../services/UserServices';
@@ -19,6 +22,23 @@ function* fetchUsers(action) {
         yield put(loadUsers(response.data));
     } catch (error) {
         yield put(showErrorLoadUsers());
+    }
+}
+
+function* fetchSingleUser(action) {
+    try {
+        const response = yield call(
+            UserListService.getUserData,
+            action.payload
+        );
+        yield put(loadUserDetails(response.data.user));
+    } catch (error) {
+        if (!error.response) {
+            yield put(showErrorLoadUsers());
+            return;
+        } else if (error.response.status === 401) {
+            yield put(showErrorLogin());
+        }
     }
 }
 
@@ -69,6 +89,7 @@ function* addNewUser(action) {
 
 export const userSagas = [
     takeLatest(requestLoadUsers.type, fetchUsers),
+    takeLatest(requestLoadSingleUser.type, fetchSingleUser),
     takeLatest(requestAddUser.type, addNewUser),
     takeLatest(requestRemoveUser.type, removeUser),
     takeLatest(requestUpdateUser.type, updateUser),

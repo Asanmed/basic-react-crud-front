@@ -6,6 +6,7 @@ const userSlice = createSlice({
 
     initialState: {
         users: [],
+        selectedUser: {},
         uiState: UiState.None,
         loggedUser: {},
     },
@@ -13,6 +14,11 @@ const userSlice = createSlice({
     reducers: {
         loadUsers(state, action) {
             state.users = action.payload;
+            state.uiState = UiState.Ready;
+        },
+
+        loadUserDetails(state, action) {
+            state.selectedUser = action.payload;
             state.uiState = UiState.Ready;
         },
 
@@ -25,6 +31,10 @@ const userSlice = createSlice({
         },
 
         requestLoadUsers: (state) => {
+            state.uiState = UiState.Loading;
+        },
+
+        requestLoadSingleUser: (state) => {
             state.uiState = UiState.Loading;
         },
 
@@ -66,9 +76,11 @@ export const userReducer = userSlice.reducer;
 
 export const {
     loadUsers,
+    loadUserDetails,
     setLoggedUser,
     requestlogIn,
     requestLoadUsers,
+    requestLoadSingleUser,
     requestUpdateUser,
     requestAddUser,
     showErrorLoadUsers,
@@ -80,6 +92,8 @@ export const {
 } = userSlice.actions;
 
 export const selectUsers = (state) => state.users.users;
+
+export const selectUserDetails = (state) => state.users.selectedUser;
 
 export const selectLoggedUser = (state) => state.users.loggedUser;
 

@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-//const baseUrl = 'https://asm-basic-rest-server.herokuapp.com/api';
-const baseUrl = 'http://localhost:8080/api';
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const UserServices = {
     login: (data) =>

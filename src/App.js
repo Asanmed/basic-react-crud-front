@@ -19,7 +19,7 @@ function App() {
                     <Route exact path="/users">
                         <UsersList />
                     </Route>
-                    <Route path="/details/:id" component={UserDetail}>
+                    <Route path="/details/:id">
                         <UserDetail />
                     </Route>
                     <Route path="*">

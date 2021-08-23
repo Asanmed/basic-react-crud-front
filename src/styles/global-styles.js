@@ -1,9 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
-html {
-    font-size: 10px;//0.1rem = 1pixel
-}
+    html {
+        font-size: 10px;//0.1rem = 1pixel
+    }
     body {
         margin: 0;
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
