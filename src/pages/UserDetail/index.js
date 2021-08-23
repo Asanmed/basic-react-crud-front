@@ -27,6 +27,7 @@ import { validations } from '../../utils/validations';
 import UiState from '../../utils/UiState';
 
 import { Wrapper } from './styles';
+import { PortraitImg } from '../../components/PortraitImg/PortraitImg';
 
 const UserDetail = () => {
     const { id } = useParams();
@@ -79,7 +80,8 @@ const UserDetail = () => {
     const createUserHandler = async () => {
         dispatch(
             requestAddUser({
-                name: firstName,
+                first_name: firstName,
+                last_name: lastName,
                 password: password,
                 role: role,
                 email,
@@ -119,6 +121,10 @@ const UserDetail = () => {
             <Wrapper>
                 {uiState === UiState.Ready && (
                     <>
+                        <PortraitImg
+                            src={selectedUser.img}
+                            alt={`${firstName} ${lastName}`}
+                        />
                         <TextInput
                             placeholder="NOMBRE"
                             error={validations.checkEmptyField(firstName)}

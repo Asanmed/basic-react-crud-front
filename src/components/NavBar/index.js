@@ -17,7 +17,7 @@ const NavBar = () => {
             {loggedUser.id && (
                 <>
                     <div className="greeting">
-                        <p>¡Hola!</p> <p>{loggedUser.name}</p>
+                        <p>¡Hola!</p> <p>{loggedUser.first_name}</p>
                     </div>{' '}
                     <li
                         className="clicable"
