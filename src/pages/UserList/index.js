@@ -36,9 +36,11 @@ const UsersList = () => {
             {uiState === UiState.Ready && (
                 <>
                     <StyledUserList>
-                        {users.data.map((e) => {
-                            return <ListItem key={e.id} user={e} />;
-                        })}
+                        {users.data
+                            ? users.data.map((e) => {
+                                  return <ListItem key={e.id} user={e} />;
+                              })
+                            : dispatch(requestLoadUsers(usernum))}
                     </StyledUserList>
                     <Footer msg="Gracias por su visita" />
                 </>
