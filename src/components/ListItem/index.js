@@ -22,9 +22,9 @@ const ListItem = ({ user }) => {
 
             <div className="name">
                 <p>
-                    <span className="tag">Name: </span>
+                    <span className="tag">Nombre: </span>
                     {`${user.first_name}`}
-                    <span> Lastname: </span>
+                    <span> Apellido: </span>
                     {`${user.last_name}`}
                 </p>
             </div>

@@ -1,7 +1,7 @@
 const userRoles = {
-    ADMIN_ROLE: 'Admin',
-    USER_ROLE: 'User',
-    SALES_ROLE: 'Seller',
+    ADMIN_ROLE: 'Administrador',
+    USER_ROLE: 'Usuario',
+    SALES_ROLE: 'Ventas',
 };
 
 export default userRoles;
